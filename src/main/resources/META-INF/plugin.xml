@@ -1,0 +1,183 @@
+<idea-plugin>
+    <id>com.codepattern.analyzer</id>
+    <name>Code Pattern Analyzer</name>
+    <vendor email="support@codepattern.dev" url="https://github.com/codepattern/code-pattern-analyzer">Code Pattern</vendor>
+
+    <description><![CDATA[
+    <h2>The #1 Architecture Guardian for AI-Assisted Development</h2>
+
+    <p>
+    Code Pattern Analyzer is the most comprehensive <b>open-source</b> code quality and architecture analysis plugin
+    for JetBrains IDEs. It acts as a real-time rulebook that catches architectural violations, security flaws,
+    complexity issues, and code smells <b>as you type</b> — whether you code manually or with AI agents
+    (Claude, Copilot, Cursor, etc.).
+    </p>
+
+    <h3>12 Architectural Patterns</h3>
+    <ul>
+        <li>MVC, Clean Architecture, SOLID Principles, Domain-Driven Design (DDD)</li>
+        <li>Hexagonal (Ports &amp; Adapters), CQRS, Microservices, Layered Architecture</li>
+        <li>Repository Pattern, Observer/Event-Driven, Factory/Creational, Code Quality</li>
+    </ul>
+
+    <h3>19 Analyzers in One Plugin</h3>
+    <ul>
+        <li><b>Architecture</b> — Layer dependency validation, circular dependency detection, coupling analysis</li>
+        <li><b>Complexity</b> — Cyclomatic (McCabe 1976), Cognitive (SonarSource 2017), Big-O estimation per function</li>
+        <li><b>Security</b> — OWASP Top 10: SQL injection, XSS, hardcoded secrets, command injection, weak crypto (14 vulnerability types with CWE IDs)</li>
+        <li><b>Memory &amp; GC</b> — Resource leaks, unbounded caches, string concat in loops, ThreadLocal leaks, GC pressure</li>
+        <li><b>Thread Safety</b> — Race conditions, deadlock risk, missing volatile, coroutine blocking calls</li>
+        <li><b>Code Quality</b> — God Class, Feature Envy, dead code, duplicate code, naming conventions</li>
+        <li><b>API Contracts</b> — REST endpoint validation: missing auth, validation, error handling</li>
+        <li><b>Call Graph</b> — Function path visualization, hub detection, orphan functions (ASCII/Mermaid/DOT)</li>
+    </ul>
+
+    <h3>AI Agent Integration</h3>
+    <ul>
+        <li>Run <code>--init</code> to generate <code>.codepattern.md</code> — AI agents read this as their architecture rulebook</li>
+        <li>Run <code>--review</code> or <code>--diff</code> for instant JSON feedback in AI workflows</li>
+        <li>Pre-commit hooks and GitHub Actions for automated quality gates</li>
+        <li>SARIF v2.1.0 output for GitHub Code Scanning integration</li>
+    </ul>
+
+    <h3>Cross-IDE Support</h3>
+    <ul>
+        <li><b>JetBrains</b> — Native plugin with real-time inline highlighting</li>
+        <li><b>VS Code, Vim, Emacs, Sublime</b> — Built-in LSP server</li>
+        <li><b>CI/CD</b> — CLI with <code>--fail-on error</code>, fitness functions, architecture drift tracking</li>
+    </ul>
+
+    <h3>Key Features</h3>
+    <ul>
+        <li>Real-time inline highlighting with confidence scores (0-100%)</li>
+        <li>Project health score (0-100) with 12-category breakdown</li>
+        <li>Automated Code Review Gate: PASS / WARN / FAIL verdict</li>
+        <li>HTML, JSON, and SARIF report export</li>
+        <li>Architecture drift tracking with baselines</li>
+        <li>Continuous watch mode for instant feedback</li>
+        <li>Works with 15+ languages: Java, Kotlin, Python, TypeScript, JavaScript, Go, Rust, C#, Swift, and more</li>
+        <li><b>100% free and open source</b></li>
+    </ul>
+
+    <h3>Quick Start</h3>
+    <ol>
+        <li>Install the plugin</li>
+        <li>Open any project — pattern is auto-detected</li>
+        <li>Violations appear inline as you type</li>
+        <li>Use Tools &rarr; Code Patterns for full project scans</li>
+    </ol>
+
+    <p><a href="https://github.com/codepattern/code-pattern-analyzer">GitHub</a> |
+    <a href="https://github.com/codepattern/code-pattern-analyzer/issues">Report Issues</a></p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <h3>1.0.0 — Initial Release</h3>
+    <ul>
+        <li>12 architectural patterns (MVC, Clean Architecture, SOLID, DDD, Hexagonal, CQRS, Microservices, Layered, Repository, Observer, Factory, Code Quality)</li>
+        <li>19 analyzers: architecture, complexity, security (OWASP), memory, thread safety, code smells, dead code, duplicate code, naming conventions, API contracts, call graphs</li>
+        <li>Real-time inline violation highlighting with confidence scores</li>
+        <li>Automated Code Review Gate with PASS/WARN/FAIL verdicts</li>
+        <li>Big-O time/space complexity estimation per function</li>
+        <li>Security scanner with 14 vulnerability types and CWE IDs</li>
+        <li>LSP server for VS Code, Vim, Emacs, Sublime Text</li>
+        <li>CLI with 30+ flags for CI/CD integration</li>
+        <li>SARIF v2.1.0, JSON, HTML report formats</li>
+        <li>AI agent integration: .codepattern.md generation, pre-commit hooks, GitHub Actions</li>
+        <li>Architecture drift tracking and fitness functions</li>
+        <li>126 tests, 50 source files, 100% open source</li>
+    </ul>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Settings -->
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.codepattern.plugin.PatternConfigurable"
+                id="com.codepattern.settings"
+                displayName="Code Pattern Analyzer"/>
+
+        <applicationService
+                serviceImplementation="com.codepattern.plugin.PatternSettingsState"/>
+
+        <applicationService
+                serviceImplementation="com.codepattern.licensing.LicenseManager"/>
+
+        <!-- Project-level services -->
+        <projectService
+                serviceImplementation="com.codepattern.scanner.ProjectScannerService"/>
+
+        <projectService
+                serviceImplementation="com.codepattern.plugin.RealTimeAnalysisManager"/>
+
+        <!-- Inspections -->
+        <localInspection
+                language=""
+                groupName="Code Pattern Analyzer"
+                displayName="Pattern Violation"
+                enabledByDefault="true"
+                level="WARNING"
+                implementationClass="com.codepattern.inspections.PatternViolationInspection"/>
+
+        <!-- Real-time annotator -->
+        <externalAnnotator
+                language=""
+                implementationClass="com.codepattern.annotator.PatternAnnotator"/>
+
+        <!-- Tool Window -->
+        <toolWindow
+                id="Code Patterns"
+                anchor="bottom"
+                factoryClass="com.codepattern.plugin.PatternToolWindowFactory"
+                icon="AllIcons.General.InspectionsEye"/>
+
+        <!-- Startup Activity -->
+        <postStartupActivity
+                implementation="com.codepattern.plugin.PatternStartupActivity"/>
+
+        <!-- Notification Group -->
+        <notificationGroup
+                id="Code Pattern Analyzer"
+                displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <group id="CodePattern.Menu" text="Code Patterns" description="Code Pattern Analyzer actions">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="CodePattern.ScanProject"
+                    class="com.codepattern.plugin.actions.ScanProjectAction"
+                    text="Scan Project for Pattern Violations"
+                    description="Run full code review across the entire project"/>
+            <action id="CodePattern.SelectPattern"
+                    class="com.codepattern.plugin.actions.SelectPatternAction"
+                    text="Select Pattern..."
+                    description="Choose which architectural pattern to validate against"/>
+            <action id="CodePattern.ExportReport"
+                    class="com.codepattern.plugin.actions.ExportReportAction"
+                    text="Export Analysis Report..."
+                    description="Export violations report as HTML, JSON, or SARIF"/>
+            <separator/>
+            <action id="CodePattern.IncrementalScan"
+                    class="com.codepattern.plugin.actions.IncrementalScanAction"
+                    text="Incremental Scan (Changed Files Only)"
+                    description="Re-analyze only files changed since last commit"/>
+            <action id="CodePattern.MultiPatternScan"
+                    class="com.codepattern.plugin.actions.MultiPatternScanAction"
+                    text="Multi-Pattern Scan..."
+                    description="Analyze project against multiple patterns simultaneously"/>
+            <separator/>
+            <action id="CodePattern.SaveBaseline"
+                    class="com.codepattern.plugin.actions.SaveBaselineAction"
+                    text="Save Architecture Baseline"
+                    description="Save current scan as architecture baseline for drift tracking"/>
+            <separator/>
+            <action id="CodePattern.ToggleRealTime"
+                    class="com.codepattern.plugin.actions.ToggleRealTimeAction"
+                    text="Enable Real-Time Analysis"
+                    description="Toggle real-time pattern violation checking as you type"/>
+        </group>
+    </actions>
+</idea-plugin>

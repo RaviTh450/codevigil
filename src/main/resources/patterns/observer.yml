@@ -1,0 +1,62 @@
+name: "Observer / Event-Driven"
+description: "Event-driven architecture with publishers, subscribers, and event bus"
+
+layers:
+  - name: "event"
+    description: "Event definitions and base types"
+    file_patterns:
+      - "**/event/**"
+      - "**/events/**"
+      - "**/message/**"
+      - "**/messages/**"
+    naming_conventions:
+      - ".*Event$"
+      - ".*Message$"
+      - ".*Signal$"
+      - ".*Notification$"
+    allowed_dependencies: []
+
+  - name: "publisher"
+    description: "Event publishers / emitters"
+    file_patterns:
+      - "**/publisher/**"
+      - "**/emitter/**"
+      - "**/producer/**"
+      - "**/dispatcher/**"
+    naming_conventions:
+      - ".*Publisher$"
+      - ".*Emitter$"
+      - ".*Producer$"
+      - ".*Dispatcher$"
+      - ".*EventBus$"
+    allowed_dependencies:
+      - "event"
+
+  - name: "subscriber"
+    description: "Event subscribers / listeners / handlers"
+    file_patterns:
+      - "**/subscriber/**"
+      - "**/listener/**"
+      - "**/handler/**"
+      - "**/consumer/**"
+    naming_conventions:
+      - ".*Subscriber$"
+      - ".*Listener$"
+      - ".*Handler$"
+      - ".*Consumer$"
+      - ".*Observer$"
+    allowed_dependencies:
+      - "event"
+
+rules:
+  - id: "observer-decoupling"
+    name: "Observer Decoupling"
+    description: "Publishers should not directly depend on subscribers and vice versa — communicate through events"
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "observer-naming"
+    name: "Observer Naming Convention"
+    description: "Events, publishers, and subscribers should follow naming conventions"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"

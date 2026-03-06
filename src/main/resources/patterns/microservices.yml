@@ -1,0 +1,140 @@
+name: "Microservices Pattern"
+description: "Validates microservice boundary patterns: API gateway, service layer, messaging, and data isolation"
+
+layers:
+  - name: "api"
+    description: "API layer - REST/gRPC controllers, request/response DTOs"
+    file_patterns:
+      - "**/api/**"
+      - "**/rest/**"
+      - "**/grpc/**"
+      - "**/controller/**"
+      - "**/controllers/**"
+      - "**/endpoint/**"
+    naming_conventions:
+      - ".*Controller$"
+      - ".*Resource$"
+      - ".*Endpoint$"
+      - ".*Request$"
+      - ".*Response$"
+      - ".*Dto$"
+      - ".*DTO$"
+    allowed_dependencies:
+      - "service"
+      - "domain"
+
+  - name: "service"
+    description: "Service layer - business logic orchestration"
+    file_patterns:
+      - "**/service/**"
+      - "**/services/**"
+      - "**/usecase/**"
+    naming_conventions:
+      - ".*Service$"
+      - ".*UseCase$"
+      - ".*Orchestrator$"
+    allowed_dependencies:
+      - "domain"
+      - "repository"
+      - "client"
+      - "messaging"
+
+  - name: "domain"
+    description: "Domain models, entities, value objects"
+    file_patterns:
+      - "**/domain/**"
+      - "**/model/**"
+      - "**/models/**"
+      - "**/entity/**"
+    naming_conventions:
+      - ".*Entity$"
+      - ".*Model$"
+      - ".*ValueObject$"
+      - ".*Enum$"
+    allowed_dependencies: []
+
+  - name: "repository"
+    description: "Data access layer - database operations"
+    file_patterns:
+      - "**/repository/**"
+      - "**/repositories/**"
+      - "**/dao/**"
+      - "**/persistence/**"
+    naming_conventions:
+      - ".*Repository$"
+      - ".*Dao$"
+      - ".*Store$"
+    allowed_dependencies:
+      - "domain"
+
+  - name: "client"
+    description: "External service clients - HTTP/gRPC clients to other services"
+    file_patterns:
+      - "**/client/**"
+      - "**/clients/**"
+      - "**/external/**"
+      - "**/integration/**"
+    naming_conventions:
+      - ".*Client$"
+      - ".*Feign$"
+      - ".*Proxy$"
+      - ".*Integration$"
+    allowed_dependencies:
+      - "domain"
+
+  - name: "messaging"
+    description: "Event publishing and consuming"
+    file_patterns:
+      - "**/messaging/**"
+      - "**/event/**"
+      - "**/events/**"
+      - "**/kafka/**"
+      - "**/rabbitmq/**"
+      - "**/pubsub/**"
+    naming_conventions:
+      - ".*Producer$"
+      - ".*Publisher$"
+      - ".*Consumer$"
+      - ".*Listener$"
+      - ".*Subscriber$"
+      - ".*Event$"
+    allowed_dependencies:
+      - "domain"
+
+  - name: "config"
+    description: "Configuration classes"
+    file_patterns:
+      - "**/config/**"
+      - "**/configuration/**"
+    naming_conventions:
+      - ".*Config$"
+      - ".*Configuration$"
+      - ".*Properties$"
+    allowed_dependencies:
+      - "domain"
+      - "service"
+      - "repository"
+      - "client"
+      - "messaging"
+
+rules:
+  - id: "micro-dep-direction"
+    name: "Microservice Dependency Direction"
+    description: "Domain should not depend on infrastructure layers; API should not directly access repository"
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "micro-naming"
+    name: "Microservice Naming Convention"
+    description: "Classes should follow microservice layer naming conventions"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"
+
+  - id: "micro-srp"
+    name: "Service Single Responsibility"
+    description: "Services should have focused responsibilities"
+    severity: "WARNING"
+    type: "SINGLE_RESPONSIBILITY"
+    config:
+      max_methods_per_class: 15
+      max_lines_per_class: 400

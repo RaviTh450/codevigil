@@ -1,0 +1,44 @@
+name: "Factory / Creational Patterns"
+description: "Validates proper use of factory patterns and avoids scattered object creation"
+
+layers: []
+
+rules:
+  - id: "factory-dip"
+    name: "Factory Dependency Inversion"
+    description: "Prefer creating objects through factories/DI rather than direct instantiation of concrete classes"
+    severity: "WARNING"
+    type: "DEPENDENCY_INVERSION"
+
+  - id: "factory-srp"
+    name: "Factory Single Responsibility"
+    description: "Factory classes should focus on object creation, not business logic"
+    severity: "WARNING"
+    type: "SINGLE_RESPONSIBILITY"
+    config:
+      max_methods_per_class: 8
+      max_lines_per_class: 150
+
+  - id: "factory-isp"
+    name: "Factory Interface Segregation"
+    description: "Factory interfaces should be small and focused"
+    severity: "INFO"
+    type: "INTERFACE_SEGREGATION"
+    config:
+      max_interface_methods: 3
+
+  - id: "factory-complexity"
+    name: "Factory Method Complexity"
+    description: "Factory methods should not have high cyclomatic complexity"
+    severity: "WARNING"
+    type: "CYCLOMATIC_COMPLEXITY"
+    config:
+      max_cyclomatic_complexity: 8
+
+  - id: "factory-params"
+    name: "Factory Parameter Count"
+    description: "Factory methods with too many parameters suggest a need for a Builder pattern"
+    severity: "INFO"
+    type: "PARAMETER_COUNT"
+    config:
+      max_parameters: 5

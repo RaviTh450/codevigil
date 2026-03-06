@@ -1,0 +1,83 @@
+name: "CQRS Pattern"
+description: "Command Query Responsibility Segregation - separates read and write models"
+
+layers:
+  - name: "command"
+    description: "Write-side: commands, command handlers, write models"
+    file_patterns:
+      - "**/command/**"
+      - "**/commands/**"
+      - "**/write/**"
+      - "**/mutation/**"
+    naming_conventions:
+      - ".*Command$"
+      - ".*CommandHandler$"
+      - ".*CommandService$"
+      - ".*Mutation$"
+      - ".*WriteModel$"
+    allowed_dependencies:
+      - "domain"
+      - "event"
+
+  - name: "query"
+    description: "Read-side: queries, query handlers, read models, projections"
+    file_patterns:
+      - "**/query/**"
+      - "**/queries/**"
+      - "**/read/**"
+      - "**/projection/**"
+      - "**/projections/**"
+    naming_conventions:
+      - ".*Query$"
+      - ".*QueryHandler$"
+      - ".*QueryService$"
+      - ".*ReadModel$"
+      - ".*Projection$"
+      - ".*View$"
+    allowed_dependencies:
+      - "domain"
+      - "event"
+
+  - name: "domain"
+    description: "Shared domain models and value objects"
+    file_patterns:
+      - "**/domain/**"
+      - "**/model/**"
+      - "**/models/**"
+    naming_conventions:
+      - ".*Entity$"
+      - ".*Aggregate$"
+      - ".*ValueObject$"
+    allowed_dependencies: []
+
+  - name: "event"
+    description: "Domain events and event handlers"
+    file_patterns:
+      - "**/event/**"
+      - "**/events/**"
+    naming_conventions:
+      - ".*Event$"
+      - ".*EventHandler$"
+      - ".*EventListener$"
+      - ".*Subscriber$"
+    allowed_dependencies:
+      - "domain"
+
+rules:
+  - id: "cqrs-separation"
+    name: "CQRS Command/Query Separation"
+    description: "Commands should not depend on query-side code and vice versa"
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "cqrs-naming"
+    name: "CQRS Naming Convention"
+    description: "Commands, queries, and handlers should follow CQRS naming"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"
+
+  - id: "cqrs-organization"
+    name: "CQRS File Organization"
+    description: "Command and query files should be in separate directories"
+    severity: "INFO"
+    type: "FILE_ORGANIZATION"

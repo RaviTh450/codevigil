@@ -1,0 +1,72 @@
+name: "MVC"
+description: "Model-View-Controller pattern - separates data, presentation, and logic"
+
+layers:
+  - name: "model"
+    description: "Data structures, entities, and business logic"
+    file_patterns:
+      - "**/model/**"
+      - "**/models/**"
+      - "**/entity/**"
+      - "**/entities/**"
+      - "**/domain/**"
+    naming_conventions:
+      - ".*Model$"
+      - ".*Entity$"
+      - ".*DTO$"
+      - ".*Data$"
+      - ".*Record$"
+    allowed_dependencies: []
+
+  - name: "view"
+    description: "UI/presentation layer"
+    file_patterns:
+      - "**/view/**"
+      - "**/views/**"
+      - "**/ui/**"
+      - "**/templates/**"
+      - "**/pages/**"
+      - "**/components/**"
+    naming_conventions:
+      - ".*View$"
+      - ".*Page$"
+      - ".*Component$"
+      - ".*Template$"
+      - ".*Screen$"
+      - ".*Fragment$"
+    allowed_dependencies:
+      - "model"
+
+  - name: "controller"
+    description: "Handles input, orchestrates model and view"
+    file_patterns:
+      - "**/controller/**"
+      - "**/controllers/**"
+      - "**/handler/**"
+      - "**/handlers/**"
+    naming_conventions:
+      - ".*Controller$"
+      - ".*Handler$"
+      - ".*Action$"
+    allowed_dependencies:
+      - "model"
+      - "view"
+
+rules:
+  - id: "mvc-layer-dep"
+    name: "MVC Layer Dependency"
+    description: "Models should not depend on views or controllers. Views should not depend on controllers."
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "mvc-naming"
+    name: "MVC Naming Convention"
+    description: "Files in each layer should follow naming conventions"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"
+
+  - id: "mvc-organization"
+    name: "MVC File Organization"
+    description: "Files should be organized in correct MVC directories"
+    severity: "INFO"
+    type: "FILE_ORGANIZATION"

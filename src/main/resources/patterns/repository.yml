@@ -1,0 +1,58 @@
+name: "Repository Pattern"
+description: "Abstracts data access behind repository interfaces"
+
+layers:
+  - name: "repository-interface"
+    description: "Repository contracts/interfaces"
+    file_patterns:
+      - "**/repository/**"
+      - "**/repositories/**"
+      - "**/port/**"
+      - "**/ports/**"
+    naming_conventions:
+      - ".*Repository$"
+      - ".*Repo$"
+      - ".*Port$"
+      - "I.*Repository$"
+    allowed_dependencies: []
+
+  - name: "repository-impl"
+    description: "Concrete repository implementations"
+    file_patterns:
+      - "**/repository/impl/**"
+      - "**/repositories/impl/**"
+      - "**/infrastructure/persistence/**"
+      - "**/data/**"
+      - "**/dao/**"
+    naming_conventions:
+      - ".*RepositoryImpl$"
+      - ".*RepoImpl$"
+      - ".*Dao$"
+      - ".*DataSource$"
+    allowed_dependencies:
+      - "repository-interface"
+
+  - name: "service"
+    description: "Business logic that uses repositories"
+    file_patterns:
+      - "**/service/**"
+      - "**/services/**"
+      - "**/usecase/**"
+    naming_conventions:
+      - ".*Service$"
+      - ".*UseCase$"
+    allowed_dependencies:
+      - "repository-interface"
+
+rules:
+  - id: "repo-dep-direction"
+    name: "Repository Dependency Direction"
+    description: "Services should depend on repository interfaces, not implementations"
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "repo-naming"
+    name: "Repository Naming Convention"
+    description: "Repository interfaces and implementations should follow naming conventions"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"

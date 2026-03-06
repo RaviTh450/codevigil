@@ -1,0 +1,88 @@
+name: "Domain-Driven Design"
+description: "DDD - bounded contexts, aggregates, value objects, domain events"
+
+layers:
+  - name: "domain"
+    description: "Core domain - aggregates, entities, value objects, domain events"
+    file_patterns:
+      - "**/domain/**"
+      - "**/core/**"
+    naming_conventions:
+      - ".*Aggregate$"
+      - ".*Entity$"
+      - ".*ValueObject$"
+      - ".*DomainEvent$"
+      - ".*Event$"
+      - ".*Specification$"
+      - ".*Policy$"
+    allowed_dependencies: []
+
+  - name: "application"
+    description: "Application services, commands, queries"
+    file_patterns:
+      - "**/application/**"
+      - "**/app/**"
+      - "**/command/**"
+      - "**/query/**"
+    naming_conventions:
+      - ".*Service$"
+      - ".*Command$"
+      - ".*CommandHandler$"
+      - ".*Query$"
+      - ".*QueryHandler$"
+    allowed_dependencies:
+      - "domain"
+
+  - name: "infrastructure"
+    description: "Persistence, messaging, external integrations"
+    file_patterns:
+      - "**/infrastructure/**"
+      - "**/infra/**"
+      - "**/persistence/**"
+      - "**/messaging/**"
+    naming_conventions:
+      - ".*Impl$"
+      - ".*Repository$"
+      - ".*Adapter$"
+      - ".*Publisher$"
+      - ".*Consumer$"
+    allowed_dependencies:
+      - "domain"
+      - "application"
+
+  - name: "interface"
+    description: "API controllers, REST endpoints, GraphQL resolvers"
+    file_patterns:
+      - "**/interface/**"
+      - "**/interfaces/**"
+      - "**/api/**"
+      - "**/rest/**"
+      - "**/graphql/**"
+      - "**/web/**"
+    naming_conventions:
+      - ".*Controller$"
+      - ".*Resolver$"
+      - ".*Resource$"
+      - ".*Endpoint$"
+    allowed_dependencies:
+      - "domain"
+      - "application"
+
+rules:
+  - id: "ddd-layer-dep"
+    name: "DDD Layer Dependency"
+    description: "Domain must not depend on application, infrastructure, or interface layers"
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "ddd-naming"
+    name: "DDD Naming Convention"
+    description: "Files should follow DDD naming conventions for their layer"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"
+
+  - id: "ddd-organization"
+    name: "DDD File Organization"
+    description: "Files should be organized within correct bounded context directories"
+    severity: "INFO"
+    type: "FILE_ORGANIZATION"

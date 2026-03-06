@@ -1,0 +1,55 @@
+name: "SOLID Principles"
+description: "Single Responsibility, Open-Closed, Liskov, Interface Segregation, Dependency Inversion"
+
+layers: []
+
+rules:
+  - id: "solid-srp"
+    name: "Single Responsibility Principle"
+    description: "A class should have only one reason to change"
+    severity: "WARNING"
+    type: "SINGLE_RESPONSIBILITY"
+    config:
+      max_methods_per_class: 10
+      max_lines_per_class: 300
+
+  - id: "solid-isp"
+    name: "Interface Segregation Principle"
+    description: "Clients should not be forced to depend on methods they do not use"
+    severity: "WARNING"
+    type: "INTERFACE_SEGREGATION"
+    config:
+      max_interface_methods: 5
+
+  - id: "solid-dip"
+    name: "Dependency Inversion Principle"
+    description: "Depend on abstractions, not concretions"
+    severity: "INFO"
+    type: "DEPENDENCY_INVERSION"
+
+  - id: "solid-method-complexity"
+    name: "Method Complexity (SRP indicator)"
+    description: "Complex methods suggest multiple responsibilities"
+    severity: "WARNING"
+    type: "CYCLOMATIC_COMPLEXITY"
+    config:
+      max_cyclomatic_complexity: 10
+
+  - id: "solid-method-length"
+    name: "Method Length (SRP indicator)"
+    description: "Long methods often violate Single Responsibility"
+    severity: "INFO"
+    type: "METHOD_LENGTH"
+    config:
+      max_method_lines: 50
+
+  - id: "solid-god-class"
+    name: "God Class Detection"
+    description: "Overly large classes that violate SRP"
+    severity: "WARNING"
+    type: "CODE_SMELL"
+    config:
+      smell_type: "GOD_CLASS"
+      max_methods: 20
+      max_lines: 500
+      max_fields: 15

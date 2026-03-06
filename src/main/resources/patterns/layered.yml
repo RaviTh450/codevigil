@@ -1,0 +1,104 @@
+name: "Layered Architecture"
+description: "Traditional N-tier/layered architecture with presentation, business, and data access layers"
+
+layers:
+  - name: "presentation"
+    description: "UI layer - controllers, views, DTOs"
+    file_patterns:
+      - "**/presentation/**"
+      - "**/web/**"
+      - "**/controller/**"
+      - "**/controllers/**"
+      - "**/ui/**"
+      - "**/view/**"
+      - "**/views/**"
+      - "**/api/**"
+    naming_conventions:
+      - ".*Controller$"
+      - ".*View$"
+      - ".*Page$"
+      - ".*Servlet$"
+      - ".*Resource$"
+      - ".*Dto$"
+      - ".*DTO$"
+    allowed_dependencies:
+      - "business"
+      - "common"
+
+  - name: "business"
+    description: "Business logic layer - services, validators, processors"
+    file_patterns:
+      - "**/business/**"
+      - "**/service/**"
+      - "**/services/**"
+      - "**/logic/**"
+      - "**/core/**"
+    naming_conventions:
+      - ".*Service$"
+      - ".*Manager$"
+      - ".*Processor$"
+      - ".*Validator$"
+      - ".*Calculator$"
+      - ".*Engine$"
+    allowed_dependencies:
+      - "data"
+      - "common"
+
+  - name: "data"
+    description: "Data access layer - repositories, DAOs, entities"
+    file_patterns:
+      - "**/data/**"
+      - "**/dal/**"
+      - "**/dao/**"
+      - "**/repository/**"
+      - "**/repositories/**"
+      - "**/persistence/**"
+    naming_conventions:
+      - ".*Repository$"
+      - ".*Dao$"
+      - ".*Mapper$"
+      - ".*Entity$"
+    allowed_dependencies:
+      - "common"
+
+  - name: "common"
+    description: "Shared utilities, constants, exceptions"
+    file_patterns:
+      - "**/common/**"
+      - "**/shared/**"
+      - "**/util/**"
+      - "**/utils/**"
+      - "**/exception/**"
+      - "**/constant/**"
+    naming_conventions:
+      - ".*Util$"
+      - ".*Utils$"
+      - ".*Helper$"
+      - ".*Constants$"
+      - ".*Exception$"
+    allowed_dependencies: []
+
+rules:
+  - id: "layered-dep"
+    name: "Layer Dependency Direction"
+    description: "Presentation depends on Business, Business depends on Data. No reverse dependencies."
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "layered-skip"
+    name: "No Layer Skipping"
+    description: "Presentation should not directly access Data layer — go through Business layer"
+    severity: "WARNING"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "layered-naming"
+    name: "Layered Architecture Naming"
+    description: "Classes should follow naming conventions for their layer"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"
+
+  - id: "layered-organization"
+    name: "Layered File Organization"
+    description: "Files should be organized in correct layer directories"
+    severity: "INFO"
+    type: "FILE_ORGANIZATION"

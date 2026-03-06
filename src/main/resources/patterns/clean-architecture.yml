@@ -1,0 +1,90 @@
+name: "Clean Architecture"
+description: "Uncle Bob's Clean Architecture - dependency rule flows inward"
+
+layers:
+  - name: "entity"
+    description: "Enterprise business rules / domain entities"
+    file_patterns:
+      - "**/domain/**"
+      - "**/entity/**"
+      - "**/entities/**"
+      - "**/core/model/**"
+    naming_conventions:
+      - ".*Entity$"
+      - ".*Aggregate$"
+      - ".*ValueObject$"
+    allowed_dependencies: []
+
+  - name: "usecase"
+    description: "Application business rules / use cases / interactors"
+    file_patterns:
+      - "**/usecase/**"
+      - "**/usecases/**"
+      - "**/interactor/**"
+      - "**/interactors/**"
+      - "**/application/**"
+    naming_conventions:
+      - ".*UseCase$"
+      - ".*Interactor$"
+      - ".*Service$"
+    allowed_dependencies:
+      - "entity"
+
+  - name: "adapter"
+    description: "Interface adapters - controllers, presenters, gateways"
+    file_patterns:
+      - "**/adapter/**"
+      - "**/adapters/**"
+      - "**/controller/**"
+      - "**/controllers/**"
+      - "**/presenter/**"
+      - "**/gateway/**"
+      - "**/gateways/**"
+    naming_conventions:
+      - ".*Controller$"
+      - ".*Presenter$"
+      - ".*Gateway$"
+      - ".*Adapter$"
+      - ".*Mapper$"
+    allowed_dependencies:
+      - "entity"
+      - "usecase"
+
+  - name: "infrastructure"
+    description: "Frameworks, drivers, external interfaces"
+    file_patterns:
+      - "**/infrastructure/**"
+      - "**/infra/**"
+      - "**/framework/**"
+      - "**/config/**"
+      - "**/db/**"
+      - "**/external/**"
+    naming_conventions:
+      - ".*Impl$"
+      - ".*Repository$"
+      - ".*Client$"
+      - ".*Config$"
+      - ".*Driver$"
+    allowed_dependencies:
+      - "entity"
+      - "usecase"
+      - "adapter"
+
+rules:
+  - id: "clean-layer-dep"
+    name: "Clean Architecture Dependency Rule"
+    description: "Dependencies must point inward. Inner layers must not know about outer layers."
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "clean-naming"
+    name: "Clean Architecture Naming"
+    description: "Files should follow layer-specific naming conventions"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"
+
+  - id: "clean-organization"
+    name: "Clean Architecture File Organization"
+    description: "Files should be in correct layer directories"
+    severity: "INFO"
+    type: "FILE_ORGANIZATION"

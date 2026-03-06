@@ -1,0 +1,117 @@
+name: "Hexagonal Architecture"
+description: "Ports and Adapters - isolates core domain from external concerns via ports (interfaces) and adapters (implementations)"
+
+layers:
+  - name: "domain"
+    description: "Core business logic, domain models, and domain services"
+    file_patterns:
+      - "**/domain/**"
+      - "**/core/**"
+      - "**/core/model/**"
+      - "**/core/service/**"
+    naming_conventions:
+      - ".*Entity$"
+      - ".*Aggregate$"
+      - ".*ValueObject$"
+      - ".*DomainService$"
+      - ".*Policy$"
+      - ".*Specification$"
+    allowed_dependencies: []
+
+  - name: "port-in"
+    description: "Input ports - use case interfaces that the domain exposes"
+    file_patterns:
+      - "**/port/in/**"
+      - "**/ports/in/**"
+      - "**/port/input/**"
+      - "**/ports/input/**"
+      - "**/port/driving/**"
+      - "**/usecase/**"
+      - "**/usecases/**"
+    naming_conventions:
+      - ".*UseCase$"
+      - ".*Port$"
+      - ".*InputPort$"
+      - ".*Command$"
+      - ".*Query$"
+    allowed_dependencies:
+      - "domain"
+
+  - name: "port-out"
+    description: "Output ports - interfaces for external dependencies the domain needs"
+    file_patterns:
+      - "**/port/out/**"
+      - "**/ports/out/**"
+      - "**/port/output/**"
+      - "**/ports/output/**"
+      - "**/port/driven/**"
+    naming_conventions:
+      - ".*Port$"
+      - ".*OutputPort$"
+      - ".*Repository$"
+      - ".*Gateway$"
+    allowed_dependencies:
+      - "domain"
+
+  - name: "adapter-in"
+    description: "Driving adapters - REST controllers, CLI, message consumers"
+    file_patterns:
+      - "**/adapter/in/**"
+      - "**/adapters/in/**"
+      - "**/adapter/driving/**"
+      - "**/adapter/web/**"
+      - "**/adapter/rest/**"
+      - "**/adapter/cli/**"
+    naming_conventions:
+      - ".*Controller$"
+      - ".*Adapter$"
+      - ".*Handler$"
+      - ".*Consumer$"
+      - ".*Listener$"
+    allowed_dependencies:
+      - "domain"
+      - "port-in"
+
+  - name: "adapter-out"
+    description: "Driven adapters - DB repos, HTTP clients, message publishers"
+    file_patterns:
+      - "**/adapter/out/**"
+      - "**/adapters/out/**"
+      - "**/adapter/driven/**"
+      - "**/adapter/persistence/**"
+      - "**/adapter/messaging/**"
+      - "**/adapter/external/**"
+    naming_conventions:
+      - ".*Adapter$"
+      - ".*Impl$"
+      - ".*Client$"
+      - ".*Publisher$"
+      - ".*Mapper$"
+    allowed_dependencies:
+      - "domain"
+      - "port-out"
+
+rules:
+  - id: "hex-dep-direction"
+    name: "Hexagonal Dependency Direction"
+    description: "Domain and ports must not depend on adapters. Adapters depend inward through ports."
+    severity: "ERROR"
+    type: "LAYER_DEPENDENCY"
+
+  - id: "hex-naming"
+    name: "Hexagonal Naming Convention"
+    description: "Classes should follow hexagonal architecture naming for their layer"
+    severity: "WARNING"
+    type: "NAMING_CONVENTION"
+
+  - id: "hex-organization"
+    name: "Hexagonal File Organization"
+    description: "Files should be placed in the correct port/adapter directory"
+    severity: "INFO"
+    type: "FILE_ORGANIZATION"
+
+  - id: "hex-dip"
+    name: "Hexagonal Dependency Inversion"
+    description: "Adapters should depend on port interfaces, not concrete implementations"
+    severity: "WARNING"
+    type: "DEPENDENCY_INVERSION"

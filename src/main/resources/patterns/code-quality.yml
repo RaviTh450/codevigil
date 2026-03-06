@@ -1,0 +1,66 @@
+name: "Code Quality"
+description: "General code quality rules: complexity limits, method length, parameter count, coupling analysis"
+
+layers: []
+
+rules:
+  - id: "quality-cyclomatic"
+    name: "Cyclomatic Complexity"
+    description: "Methods should not exceed cyclomatic complexity threshold"
+    severity: "WARNING"
+    type: "CYCLOMATIC_COMPLEXITY"
+    config:
+      max_cyclomatic_complexity: 10
+
+  - id: "quality-cognitive"
+    name: "Cognitive Complexity"
+    description: "Methods should not have high cognitive complexity (deep nesting, many branches)"
+    severity: "WARNING"
+    type: "COGNITIVE_COMPLEXITY"
+    config:
+      max_cognitive_complexity: 15
+
+  - id: "quality-method-length"
+    name: "Method Length"
+    description: "Methods should not be excessively long"
+    severity: "WARNING"
+    type: "METHOD_LENGTH"
+    config:
+      max_method_lines: 50
+
+  - id: "quality-param-count"
+    name: "Parameter Count"
+    description: "Methods with too many parameters are hard to understand and test"
+    severity: "WARNING"
+    type: "PARAMETER_COUNT"
+    config:
+      max_parameters: 5
+
+  - id: "quality-god-class"
+    name: "God Class Detection"
+    description: "Classes that are too large or have too many responsibilities"
+    severity: "WARNING"
+    type: "CODE_SMELL"
+    config:
+      smell_type: "GOD_CLASS"
+      max_methods: 20
+      max_lines: 500
+      max_fields: 15
+
+  - id: "quality-srp"
+    name: "Single Responsibility"
+    description: "A class should have only one reason to change"
+    severity: "WARNING"
+    type: "SINGLE_RESPONSIBILITY"
+    config:
+      max_methods_per_class: 12
+      max_lines_per_class: 300
+
+  - id: "quality-coupling"
+    name: "High Coupling"
+    description: "Modules with too many dependencies are fragile"
+    severity: "INFO"
+    type: "COUPLING"
+    config:
+      max_efferent_coupling: 10
+      max_import_count: 15
