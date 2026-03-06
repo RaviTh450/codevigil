@@ -97,7 +97,7 @@ jobs:
           generate_release_notes: true
 
       - name: Publish to JetBrains Marketplace
-        if: ${{ vars.PUBLISH_TOKEN != '' || secrets.PUBLISH_TOKEN != '' }}
+        if: ${{ env.PUBLISH_TOKEN != '' }}
         env:
           PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
           CERTIFICATE_CHAIN: ${{ secrets.CERTIFICATE_CHAIN }}
