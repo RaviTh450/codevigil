@@ -1,13 +1,13 @@
 <idea-plugin>
     <id>com.codepattern.analyzer</id>
-    <name>Code Pattern Analyzer</name>
-    <vendor email="support@codepattern.dev" url="https://github.com/codepattern/code-pattern-analyzer">Code Pattern</vendor>
+    <name>CodeVigil</name>
+    <vendor email="support@codevigil.dev" url="https://github.com/RaviTh450/codevigil">CodeVigil</vendor>
 
     <description><![CDATA[
     <h2>The #1 Architecture Guardian for AI-Assisted Development</h2>
 
     <p>
-    Code Pattern Analyzer is the most comprehensive <b>open-source</b> code quality and architecture analysis plugin
+    CodeVigil is the most comprehensive <b>open-source</b> code quality and architecture analysis plugin
     for JetBrains IDEs. It acts as a real-time rulebook that catches architectural violations, security flaws,
     complexity issues, and code smells <b>as you type</b> — whether you code manually or with AI agents
     (Claude, Copilot, Cursor, etc.).
@@ -64,11 +64,11 @@
         <li>Install the plugin</li>
         <li>Open any project — pattern is auto-detected</li>
         <li>Violations appear inline as you type</li>
-        <li>Use Tools &rarr; Code Patterns for full project scans</li>
+        <li>Use Tools &rarr; CodeVigil for full project scans</li>
     </ol>
 
-    <p><a href="https://github.com/codepattern/code-pattern-analyzer">GitHub</a> |
-    <a href="https://github.com/codepattern/code-pattern-analyzer/issues">Report Issues</a></p>
+    <p><a href="https://github.com/RaviTh450/codevigil">GitHub</a> |
+    <a href="https://github.com/RaviTh450/codevigil/issues">Report Issues</a></p>
     ]]></description>
 
     <change-notes><![CDATA[
@@ -98,7 +98,7 @@
                 parentId="tools"
                 instance="com.codepattern.plugin.PatternConfigurable"
                 id="com.codepattern.settings"
-                displayName="Code Pattern Analyzer"/>
+                displayName="CodeVigil"/>
 
         <applicationService
                 serviceImplementation="com.codepattern.plugin.PatternSettingsState"/>
@@ -116,7 +116,7 @@
         <!-- Inspections -->
         <localInspection
                 language=""
-                groupName="Code Pattern Analyzer"
+                groupName="CodeVigil"
                 displayName="Pattern Violation"
                 enabledByDefault="true"
                 level="WARNING"
@@ -129,7 +129,7 @@
 
         <!-- Tool Window -->
         <toolWindow
-                id="Code Patterns"
+                id="CodeVigil"
                 anchor="bottom"
                 factoryClass="com.codepattern.plugin.PatternToolWindowFactory"
                 icon="AllIcons.General.InspectionsEye"/>
@@ -140,12 +140,12 @@
 
         <!-- Notification Group -->
         <notificationGroup
-                id="Code Pattern Analyzer"
+                id="CodeVigil"
                 displayType="BALLOON"/>
     </extensions>
 
     <actions>
-        <group id="CodePattern.Menu" text="Code Patterns" description="Code Pattern Analyzer actions">
+        <group id="CodePattern.Menu" text="CodeVigil" description="CodeVigil actions">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <action id="CodePattern.ScanProject"
                     class="com.codepattern.plugin.actions.ScanProjectAction"

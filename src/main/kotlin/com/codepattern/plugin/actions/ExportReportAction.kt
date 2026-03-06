@@ -20,7 +20,7 @@ class ExportReportAction : AnAction() {
 
         if (service.selectedPattern == null || service.lastViolations.isEmpty()) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification(
                     "No Data",
                     "Run a scan first, then export the report.",
@@ -36,10 +36,10 @@ class ExportReportAction : AnAction() {
             !license.isFeatureAvailable(LicenseManager.FEATURE_EXPORT_JSON)
         ) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification(
                     "Pro Feature",
-                    "Report export requires a Pro or Enterprise license. Upgrade in Settings > Code Pattern Analyzer.",
+                    "Report export requires a Pro or Enterprise license. Upgrade in Settings > CodeVigil.",
                     NotificationType.INFORMATION
                 )
                 .notify(project)
@@ -78,7 +78,7 @@ class ExportReportAction : AnAction() {
         java.io.File(outputPath).writeText(content)
 
         NotificationGroupManager.getInstance()
-            .getNotificationGroup("Code Pattern Analyzer")
+            .getNotificationGroup("CodeVigil")
             .createNotification(
                 "Report Exported",
                 "Report saved to: $outputPath",

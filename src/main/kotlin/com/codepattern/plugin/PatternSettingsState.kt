@@ -24,7 +24,7 @@ class PatternSettingsState : PersistentStateComponent<PatternSettingsState.State
         var minConfidence: Double = 0.5,  // minimum confidence threshold for displaying violations
         var showConfidenceScores: Boolean = true,
         var enableRealTimeAnalysis: Boolean = true,  // auto-check as you type
-        var autoDetectPattern: Boolean = true         // auto-select pattern from .codepattern.yml
+        var autoDetectPattern: Boolean = true         // auto-select pattern from .codevigil.yml
     )
 
     private var myState = State()

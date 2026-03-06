@@ -16,11 +16,11 @@ class PatternQuickFix(private val violation: Violation) : LocalQuickFix {
 
     override fun getName(): String = "View suggestion: ${violation.suggestedFix?.take(50) ?: "View details"}"
 
-    override fun getFamilyName(): String = "Code Pattern Analyzer Suggestions"
+    override fun getFamilyName(): String = "CodeVigil Suggestions"
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         NotificationGroupManager.getInstance()
-            .getNotificationGroup("Code Pattern Analyzer")
+            .getNotificationGroup("CodeVigil")
             .createNotification(
                 "Pattern Fix Suggestion",
                 buildString {

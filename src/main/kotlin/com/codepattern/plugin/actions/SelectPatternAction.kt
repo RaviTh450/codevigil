@@ -23,7 +23,7 @@ class SelectPatternAction : AnAction() {
         val patterns = service.availablePatterns
         if (patterns.isEmpty()) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification("No Patterns", "No pattern definitions found.", NotificationType.ERROR)
                 .notify(project)
             return
@@ -40,7 +40,7 @@ class SelectPatternAction : AnAction() {
                     PatternSettingsState.getInstance().state.selectedPatternName = patterns[index].name
 
                     NotificationGroupManager.getInstance()
-                        .getNotificationGroup("Code Pattern Analyzer")
+                        .getNotificationGroup("CodeVigil")
                         .createNotification(
                             "Pattern Selected",
                             "Now using '${patterns[index].name}'. Run scan from Tools > Code Patterns > Scan Project.",

@@ -1,8 +1,8 @@
-# Code Pattern Analyzer
+# CodeVigil
 
 **The #1 Architecture Guardian for AI-Assisted Development**
 
-[![Build](https://github.com/RaviTh450/code-pattern-analyzer/actions/workflows/build.yml/badge.svg)](https://github.com/RaviTh450/code-pattern-analyzer/actions/workflows/build.yml)
+[![Build](https://github.com/RaviTh450/codevigil/actions/workflows/build.yml/badge.svg)](https://github.com/RaviTh450/codevigil/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![JetBrains Plugin](https://img.shields.io/badge/JetBrains-Plugin-orange)](https://plugins.jetbrains.com/plugin/com.codepattern.analyzer)
 
@@ -32,7 +32,7 @@ The most comprehensive **open-source** code quality and architecture analysis to
 
 ### JetBrains IDE (IntelliJ, WebStorm, PyCharm, etc.)
 
-1. **Install**: Settings > Plugins > Marketplace > Search "Code Pattern Analyzer"
+1. **Install**: Settings > Plugins > Marketplace > Search "CodeVigil"
 2. **Open any project** — pattern is auto-detected from folder structure
 3. **Violations appear inline** as you type with confidence scores
 4. **Tools > Code Patterns** for full project scans
@@ -41,30 +41,30 @@ The most comprehensive **open-source** code quality and architecture analysis to
 
 ```bash
 # Full automated code review
-java -jar code-pattern-analyzer.jar --review ./my-project
+java -jar codevigil.jar --review ./my-project
 
-# Quick start: generate .codepattern.md for AI agents
-java -jar code-pattern-analyzer.jar --init ./my-project
+# Quick start: generate .codevigil.md for AI agents
+java -jar codevigil.jar --init ./my-project
 
 # Specific analyses
-java -jar code-pattern-analyzer.jar --security --dead-code --duplicates ./my-project
+java -jar codevigil.jar --security --dead-code --duplicates ./my-project
 
 # CI/CD with SARIF output for GitHub Code Scanning
-java -jar code-pattern-analyzer.jar --review --format sarif --output results.sarif ./my-project
+java -jar codevigil.jar --review --format sarif --output results.sarif ./my-project
 ```
 
 ### VS Code / Vim / Emacs / Sublime (LSP)
 
 ```bash
 # Start the LSP server
-java -jar code-pattern-analyzer.jar --lsp
+java -jar codevigil.jar --lsp
 
 # VS Code: add to settings.json
 {
   "languageserver": {
     "codepattern": {
       "command": "java",
-      "args": ["-jar", "code-pattern-analyzer.jar", "--lsp"]
+      "args": ["-jar", "codevigil.jar", "--lsp"]
     }
   }
 }
@@ -72,21 +72,21 @@ java -jar code-pattern-analyzer.jar --lsp
 
 ## AI Agent Integration
 
-This is what makes Code Pattern Analyzer go viral: **AI agents read `.codepattern.md` as their architecture rulebook.**
+This is what makes CodeVigil go viral: **AI agents read `.codevigil.md` as their architecture rulebook.**
 
 ```bash
 # Step 1: Initialize your project
-java -jar code-pattern-analyzer.jar --init ./my-project
+java -jar codevigil.jar --init ./my-project
 
 # This creates:
-#   .codepattern.md     — AI agents read this automatically (commit to git)
-#   .codepattern.yml    — Configuration
+#   .codevigil.md     — AI agents read this automatically (commit to git)
+#   .codevigil.yml    — Configuration
 #   .git/hooks/pre-commit (with --install-hook)
 #   .github/workflows/  — Automated PR reviews
 ```
 
 ### How it works:
-1. You run `--init` → `.codepattern.md` appears in your repo
+1. You run `--init` → `.codevigil.md` appears in your repo
 2. AI agent (Claude, Cursor, Copilot) reads it as context
 3. AI follows the architecture rules while coding
 4. Pre-commit hook catches violations before they land
@@ -96,13 +96,13 @@ java -jar code-pattern-analyzer.jar --init ./my-project
 ### AI Fast-Check Mode
 ```bash
 # Only review what changed (fast feedback for AI agents)
-java -jar code-pattern-analyzer.jar --diff --format json ./my-project
+java -jar codevigil.jar --diff --format json ./my-project
 ```
 
 ## CLI Reference
 
 ```
-Usage: java -jar code-pattern-analyzer.jar [options] <project-path>
+Usage: java -jar codevigil.jar [options] <project-path>
 
 Analysis:
   --pattern <name>       Validate against: mvc, clean-architecture, solid, ddd,
@@ -128,7 +128,7 @@ Output:
   --fail-on error|warning         Exit code 1 on violations (for CI)
 
 AI & Setup:
-  --init                 Generate .codepattern.md + hooks + GitHub Action
+  --init                 Generate .codevigil.md + hooks + GitHub Action
   --diff                 Review only git-changed files
   --install-hook         Install pre-commit hook
   --watch                Continuous watch mode
@@ -180,11 +180,11 @@ Java, Kotlin, Python, TypeScript, JavaScript, Go, Rust, C#, Swift, Dart, Ruby, P
 ```bash
 # Build the IntelliJ plugin
 ./gradlew buildPlugin
-# Output: build/distributions/code-pattern-analyzer-1.0.0.zip
+# Output: build/distributions/codevigil-1.0.0.zip
 
 # Build the CLI JAR
 ./gradlew cliJar
-# Output: build/libs/code-pattern-analyzer-1.0.0-cli.jar
+# Output: build/libs/codevigil-1.0.0-cli.jar
 
 # Run tests (126 tests)
 ./gradlew test
@@ -204,4 +204,4 @@ Apache License 2.0 - see [LICENSE](LICENSE)
 
 ---
 
-**Built by [Ravi Thakur](https://github.com/RaviTh450)** | [Report Issues](https://github.com/RaviTh450/code-pattern-analyzer/issues)
+**Built by [Ravi Thakur](https://github.com/RaviTh450)** | [Report Issues](https://github.com/RaviTh450/codevigil/issues)

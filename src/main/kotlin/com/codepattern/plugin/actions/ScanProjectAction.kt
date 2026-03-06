@@ -17,7 +17,7 @@ class ScanProjectAction : AnAction() {
 
         if (service.selectedPattern == null) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification(
                     "No Pattern Selected",
                     "Please select a pattern first via Tools > Code Patterns > Select Pattern.",
@@ -38,7 +38,7 @@ class ScanProjectAction : AnAction() {
                 indicator.fraction = 1.0
 
                 NotificationGroupManager.getInstance()
-                    .getNotificationGroup("Code Pattern Analyzer")
+                    .getNotificationGroup("CodeVigil")
                     .createNotification(
                         "Scan Complete",
                         "Found ${violations.size} violation(s) against '${service.selectedPattern?.name}' pattern. " +

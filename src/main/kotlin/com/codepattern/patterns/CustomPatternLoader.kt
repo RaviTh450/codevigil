@@ -10,10 +10,10 @@ import java.io.File
  * Loads custom patterns and configuration from the project root.
  *
  * Looks for:
- *   .codepattern.yml   — Project-level pattern config
- *   .codepattern/       — Directory for custom pattern YAML files
+ *   .codevigil.yml   — Project-level pattern config
+ *   .codevigil/       — Directory for custom pattern YAML files
  *
- * .codepattern.yml format:
+ * .codevigil.yml format:
  * ```yaml
  * # Which built-in patterns to use
  * patterns:
@@ -22,7 +22,7 @@ import java.io.File
  *
  * # Custom patterns (inline or reference file)
  * custom_patterns:
- *   - file: .codepattern/my-pattern.yml
+ *   - file: .codevigil/my-pattern.yml
  *
  * # Architecture fitness thresholds
  * fitness:
@@ -55,13 +55,13 @@ class CustomPatternLoader {
     )
 
     /**
-     * Load project configuration from .codepattern.yml in the project root.
+     * Load project configuration from .codevigil.yml in the project root.
      */
     fun loadProjectConfig(projectPath: String): ProjectConfig? {
-        val configFile = File(projectPath, ".codepattern.yml")
+        val configFile = File(projectPath, ".codevigil.yml")
         if (!configFile.exists()) {
-            // Also try .codepattern.yaml
-            val altFile = File(projectPath, ".codepattern.yaml")
+            // Also try .codevigil.yaml
+            val altFile = File(projectPath, ".codevigil.yaml")
             if (!altFile.exists()) return null
             return parseConfigFile(altFile, projectPath)
         }
@@ -69,14 +69,14 @@ class CustomPatternLoader {
     }
 
     /**
-     * Load all custom pattern YAML files from .codepattern/ directory.
+     * Load all custom pattern YAML files from .codevigil/ directory.
      */
     fun loadCustomPatterns(projectPath: String): List<PatternSpec> {
-        val customDir = File(projectPath, ".codepattern")
+        val customDir = File(projectPath, ".codevigil")
         if (!customDir.isDirectory) return emptyList()
 
         return customDir.listFiles()
-            ?.filter { it.extension in listOf("yml", "yaml") && it.name != ".codepattern.yml" }
+            ?.filter { it.extension in listOf("yml", "yaml") && it.name != ".codevigil.yml" }
             ?.mapNotNull { file ->
                 try {
                     parsePatternFile(file)
@@ -106,7 +106,7 @@ class CustomPatternLoader {
                 }
             }
 
-            // Also load patterns from .codepattern/ directory
+            // Also load patterns from .codevigil/ directory
             customPatterns.addAll(loadCustomPatterns(projectPath))
 
             val fitnessData = data["fitness"] as? Map<String, Any>
@@ -123,7 +123,7 @@ class CustomPatternLoader {
                 multiPattern = multiPattern
             )
         } catch (e: Exception) {
-            log.warn("Failed to parse .codepattern.yml: ${e.message}")
+            log.warn("Failed to parse .codevigil.yml: ${e.message}")
             null
         }
     }

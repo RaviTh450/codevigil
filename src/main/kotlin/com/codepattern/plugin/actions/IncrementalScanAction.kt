@@ -17,7 +17,7 @@ class IncrementalScanAction : AnAction() {
 
         if (service.selectedPattern == null) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification("No Pattern Selected", "Select a pattern first.", NotificationType.WARNING)
                 .notify(project)
             return
@@ -31,7 +31,7 @@ class IncrementalScanAction : AnAction() {
                 indicator.fraction = 1.0
 
                 NotificationGroupManager.getInstance()
-                    .getNotificationGroup("Code Pattern Analyzer")
+                    .getNotificationGroup("CodeVigil")
                     .createNotification(
                         "Incremental Scan Complete",
                         "Found ${violations.size} violation(s). Only changed files were re-analyzed.",

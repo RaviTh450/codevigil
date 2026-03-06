@@ -25,7 +25,7 @@ class MultiPatternScanAction : AnAction() {
         val patterns = service.availablePatterns
         if (patterns.isEmpty()) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification("No Patterns", "No pattern definitions found.", NotificationType.ERROR)
                 .notify(project)
             return
@@ -53,7 +53,7 @@ class MultiPatternScanAction : AnAction() {
                         val violations = service.scanAndAnalyzeMultiPattern()
 
                         NotificationGroupManager.getInstance()
-                            .getNotificationGroup("Code Pattern Analyzer")
+                            .getNotificationGroup("CodeVigil")
                             .createNotification(
                                 "Multi-Pattern Scan Complete",
                                 "Found ${violations.size} violation(s) across ${service.selectedPatterns.size} patterns. " +

@@ -155,7 +155,7 @@ object FitnessFunction {
     }
 
     /**
-     * Parse fitness config from a map (loaded from .codepattern.yml or CLI args).
+     * Parse fitness config from a map (loaded from .codevigil.yml or CLI args).
      */
     fun parseConfig(map: Map<String, Any>): FitnessConfig {
         return FitnessConfig(

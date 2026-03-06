@@ -20,7 +20,7 @@ class PatternConfigurable : Configurable {
     private var autoDetectPatternCheckBox: JCheckBox? = null
     private var excludedPathsArea: JTextArea? = null
 
-    override fun getDisplayName(): String = "Code Pattern Analyzer"
+    override fun getDisplayName(): String = "CodeVigil"
 
     override fun createComponent(): JComponent {
         val panel = JPanel(BorderLayout(10, 10))

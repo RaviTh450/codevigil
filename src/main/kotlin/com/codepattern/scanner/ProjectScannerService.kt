@@ -51,7 +51,7 @@ class ProjectScannerService(private val project: Project) {
     var lastDependencyGraph: List<DependencyGraphGenerator.LayerEdge>? = null
         private set
 
-    /** Project-level config from .codepattern.yml */
+    /** Project-level config from .codevigil.yml */
     var projectConfig: CustomPatternLoader.ProjectConfig? = null
         private set
 
@@ -59,7 +59,7 @@ class ProjectScannerService(private val project: Project) {
         val builtIn = loader.loadBuiltInPatterns()
         val basePath = project.basePath
 
-        // Load custom patterns from .codepattern/ and .codepattern.yml
+        // Load custom patterns from .codevigil/ and .codevigil.yml
         val custom = if (basePath != null) {
             projectConfig = customLoader.loadProjectConfig(basePath)
             customLoader.loadCustomPatterns(basePath)

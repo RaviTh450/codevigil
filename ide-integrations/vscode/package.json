@@ -1,0 +1,99 @@
+{
+  "name": "codevigil",
+  "displayName": "CodeVigil",
+  "description": "Language-agnostic architectural pattern validation with 12+ patterns, complexity analysis, and code smell detection",
+  "version": "1.0.0",
+  "publisher": "codevigil",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "architecture",
+    "pattern",
+    "clean architecture",
+    "solid",
+    "mvc",
+    "ddd",
+    "hexagonal",
+    "code quality",
+    "linter",
+    "complexity"
+  ],
+  "activationEvents": [
+    "onLanguage:java",
+    "onLanguage:kotlin",
+    "onLanguage:python",
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:go",
+    "onLanguage:rust",
+    "onLanguage:csharp",
+    "onLanguage:swift",
+    "onLanguage:dart",
+    "onLanguage:ruby",
+    "onLanguage:php"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codevigil.scanProject",
+        "title": "Code Patterns: Scan Project"
+      },
+      {
+        "command": "codevigil.selectPattern",
+        "title": "Code Patterns: Select Pattern"
+      },
+      {
+        "command": "codevigil.exportReport",
+        "title": "Code Patterns: Export Report"
+      }
+    ],
+    "configuration": {
+      "title": "CodeVigil",
+      "properties": {
+        "codevigil.javaPath": {
+          "type": "string",
+          "default": "java",
+          "description": "Path to Java runtime"
+        },
+        "codevigil.pattern": {
+          "type": "string",
+          "default": "clean-architecture",
+          "enum": [
+            "mvc",
+            "clean-architecture",
+            "solid",
+            "ddd",
+            "repository",
+            "hexagonal",
+            "cqrs",
+            "microservices",
+            "layered",
+            "observer",
+            "factory",
+            "code-quality"
+          ],
+          "description": "Active architectural pattern to validate against"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0",
+    "vscode-languageclient": "^9.0.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.0"
+  }
+}

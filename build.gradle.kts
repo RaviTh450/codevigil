@@ -30,7 +30,7 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         id = "com.codepattern.analyzer"
-        name = "Code Pattern Analyzer"
+        name = "CodeVigil"
         version = "1.0.0"
 
         ideaVersion {

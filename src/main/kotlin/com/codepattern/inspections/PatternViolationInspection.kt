@@ -15,7 +15,7 @@ class PatternViolationInspection : LocalInspectionTool() {
 
     override fun getDisplayName(): String = "Code Pattern Violation"
 
-    override fun getGroupDisplayName(): String = "Code Pattern Analyzer"
+    override fun getGroupDisplayName(): String = "CodeVigil"
 
     override fun getShortName(): String = "PatternViolation"
 

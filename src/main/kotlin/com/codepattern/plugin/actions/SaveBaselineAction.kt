@@ -14,7 +14,7 @@ class SaveBaselineAction : AnAction() {
 
         if (service.selectedPattern == null || service.lastScanResult == null) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification("No Data", "Run a scan first, then save a baseline.", NotificationType.WARNING)
                 .notify(project)
             return
@@ -23,7 +23,7 @@ class SaveBaselineAction : AnAction() {
         service.saveBaseline()
 
         NotificationGroupManager.getInstance()
-            .getNotificationGroup("Code Pattern Analyzer")
+            .getNotificationGroup("CodeVigil")
             .createNotification(
                 "Baseline Saved",
                 "Architecture baseline saved for '${service.selectedPattern!!.name}'. " +

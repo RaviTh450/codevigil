@@ -15,7 +15,7 @@ class ToggleRealTimeAction : AnAction() {
 
         if (service.selectedPattern == null) {
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification(
                     "No Pattern Selected",
                     "Select an architectural pattern first (Tools > Code Patterns > Select Pattern).",
@@ -29,7 +29,7 @@ class ToggleRealTimeAction : AnAction() {
         val nowEnabled = manager.toggle()
 
         NotificationGroupManager.getInstance()
-            .getNotificationGroup("Code Pattern Analyzer")
+            .getNotificationGroup("CodeVigil")
             .createNotification(
                 "Real-Time Analysis ${if (nowEnabled) "Enabled" else "Disabled"}",
                 if (nowEnabled)

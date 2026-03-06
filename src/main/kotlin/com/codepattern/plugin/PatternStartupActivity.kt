@@ -21,7 +21,7 @@ class PatternStartupActivity : ProjectActivity {
             }
         }
 
-        // Auto-detect pattern from .codepattern.yml if none selected
+        // Auto-detect pattern from .codevigil.yml if none selected
         if (service.selectedPattern == null && settings.state.autoDetectPattern) {
             // If project config specified patterns, use the first one
             if (service.selectedPatterns.isNotEmpty()) {
@@ -42,9 +42,9 @@ class PatternStartupActivity : ProjectActivity {
             val realTimeStatus = if (settings.state.enableRealTimeAnalysis && service.selectedPattern != null)
                 " Real-time checking is ON." else ""
             NotificationGroupManager.getInstance()
-                .getNotificationGroup("Code Pattern Analyzer")
+                .getNotificationGroup("CodeVigil")
                 .createNotification(
-                    "Code Pattern Analyzer",
+                    "CodeVigil",
                     "Plugin loaded with ${service.availablePatterns.size} patterns. " +
                             (if (service.selectedPattern != null)
                                 "Active pattern: ${service.selectedPattern!!.name}.$realTimeStatus"

@@ -1,1 +1,1 @@
-rootProject.name = "code-pattern-analyzer"
+rootProject.name = "codevigil"

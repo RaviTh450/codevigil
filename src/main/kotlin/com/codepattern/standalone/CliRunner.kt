@@ -14,7 +14,7 @@ import org.yaml.snakeyaml.Yaml
  * CLI entry point for cross-IDE and CI/CD usage.
  *
  * Usage:
- *   java -jar code-pattern-analyzer.jar [options] <project-path>
+ *   java -jar codevigil.jar [options] <project-path>
  *
  * Options:
  *   --pattern <name>       Pattern to validate (mvc, clean-architecture, solid, ddd, etc.)
@@ -44,7 +44,7 @@ import org.yaml.snakeyaml.Yaml
  *   --naming               Check naming conventions (PascalCase, camelCase, snake_case)
  *   --api                  Validate REST API contracts (auth, validation, error handling)
  *   --watch                Continuous watch mode — re-analyze on file changes
- *   --init                 Initialize project: generates .codepattern.md, pre-commit hook, GitHub Action
+ *   --init                 Initialize project: generates .codevigil.md, pre-commit hook, GitHub Action
  *   --diff                 Review only files changed in git (AI agent fast-check mode)
  *   --install-hook         Install pre-commit hook to .git/hooks/
  *   --help                 Show help
@@ -96,13 +96,13 @@ class CliRunner {
             }
             println()
             println("Project initialized! Files created:")
-            println("  .codepattern.md     — AI agents read this for architecture rules")
-            println("  .codepattern.yml    — Configuration file")
-            println("  .codepattern/hooks/ — Pre-commit hook (run --install-hook to activate)")
+            println("  .codevigil.md     — AI agents read this for architecture rules")
+            println("  .codevigil.yml    — Configuration file")
+            println("  .codevigil/hooks/ — Pre-commit hook (run --install-hook to activate)")
             println("  .github/workflows/  — GitHub Action for PR reviews")
             println()
             println("Next steps:")
-            println("  1. Commit .codepattern.md to git (AI agents will read it automatically)")
+            println("  1. Commit .codevigil.md to git (AI agents will read it automatically)")
             println("  2. Run --install-hook to enable pre-commit checks")
             println("  3. Push .github/workflows/ for automated PR reviews")
             return 0
@@ -596,7 +596,7 @@ class CliRunner {
 
     private fun printTextReport(violations: List<Violation>, patternName: String, totalFiles: Int, healthScore: Int, outputFile: String?) {
         val sb = StringBuilder()
-        sb.appendLine("=== Code Pattern Analysis Report ===")
+        sb.appendLine("=== CodeVigil Analysis Report ===")
         sb.appendLine("Pattern: $patternName")
         sb.appendLine("Files scanned: $totalFiles")
         sb.appendLine("Health score: $healthScore/100")
@@ -633,9 +633,9 @@ class CliRunner {
 
     private fun printHelp() {
         println("""
-            Code Pattern Analyzer - CLI
+            CodeVigil - CLI
 
-            Usage: java -jar code-pattern-analyzer.jar [options] <project-path>
+            Usage: java -jar codevigil.jar [options] <project-path>
 
             Options:
               --pattern <name>         Pattern to validate against:
@@ -674,29 +674,29 @@ class CliRunner {
               --format sarif           SARIF v2.1.0 for GitHub Code Scanning / GitLab SAST
 
             AI Agent & Setup Commands:
-              --init                   Initialize project: .codepattern.md, hooks, GitHub Action
+              --init                   Initialize project: .codevigil.md, hooks, GitHub Action
               --diff                   Review only git-changed files (fast AI agent check)
               --install-hook           Install pre-commit hook to .git/hooks/
               -h, --help               Show this help
 
             Examples:
-              # Quick start (generates .codepattern.md for AI agents)
-              java -jar code-pattern-analyzer.jar --init ./my-project
+              # Quick start (generates .codevigil.md for AI agents)
+              java -jar codevigil.jar --init ./my-project
 
               # AI agent fast-check: only review what changed
-              java -jar code-pattern-analyzer.jar --diff --format json ./my-project
+              java -jar codevigil.jar --diff --format json ./my-project
 
               # Full automated code review
-              java -jar code-pattern-analyzer.jar --review ./my-project
+              java -jar codevigil.jar --review ./my-project
 
               # Standard analysis
-              java -jar code-pattern-analyzer.jar --pattern mvc ./my-project
-              java -jar code-pattern-analyzer.jar --all-patterns --format html --output report.html ./my-project
-              java -jar code-pattern-analyzer.jar --pattern solid --fail-on error ./my-project
-              java -jar code-pattern-analyzer.jar --pattern clean-architecture --fitness ./my-project
+              java -jar codevigil.jar --pattern mvc ./my-project
+              java -jar codevigil.jar --all-patterns --format html --output report.html ./my-project
+              java -jar codevigil.jar --pattern solid --fail-on error ./my-project
+              java -jar codevigil.jar --pattern clean-architecture --fitness ./my-project
 
             AI Agent Integration:
-              1. Run --init to generate .codepattern.md (AI reads this automatically)
+              1. Run --init to generate .codevigil.md (AI reads this automatically)
               2. Run --install-hook for pre-commit quality gate
               3. Use --review or --diff for JSON feedback in AI workflows
               4. Push .github/workflows/ for automated PR reviews

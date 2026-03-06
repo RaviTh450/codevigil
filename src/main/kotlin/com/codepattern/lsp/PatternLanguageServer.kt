@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
  *   - codePatternAnalyzer/setPattern → change active pattern
  *
  * For VS Code: use a thin extension wrapper that launches this JAR.
- * For Vim/Neovim: configure in nvim-lspconfig with cmd = {"java", "-jar", "code-pattern-analyzer.jar", "--lsp"}
+ * For Vim/Neovim: configure in nvim-lspconfig with cmd = {"java", "-jar", "codevigil.jar", "--lsp"}
  * For Emacs: configure in lsp-mode.
  * For Sublime Text: configure in LSP package settings.
  */
@@ -195,7 +195,7 @@ class PatternLanguageServer {
                 "diagnosticProvider": { "interFileDependencies": false, "workspaceDiagnostics": false }
             },
             "serverInfo": {
-                "name": "Code Pattern Analyzer",
+                "name": "CodeVigil",
                 "version": "1.0.0"
             }
         }
@@ -307,7 +307,7 @@ class PatternLanguageServer {
             {
                 "range": {"start": {"line": ${v.lineNumber - 1}, "character": 0}, "end": {"line": ${v.lineNumber - 1}, "character": 1000}},
                 "severity": $severity,
-                "source": "Code Pattern Analyzer",
+                "source": "CodeVigil",
                 "message": "[${escapeJson(v.patternName)}] ${escapeJson(v.message)}${if (v.suggestedFix != null) "\nSuggestion: ${escapeJson(v.suggestedFix)}" else ""}"
             }
             """.trimIndent()

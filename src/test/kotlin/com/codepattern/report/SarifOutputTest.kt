@@ -27,7 +27,7 @@ class SarifOutputTest {
         val sarif = ReportGenerator.generateSarif(data)
         assertTrue("Should contain SARIF schema", sarif.contains("sarif-schema-2.1.0"))
         assertTrue("Should contain version", sarif.contains("\"version\": \"2.1.0\""))
-        assertTrue("Should contain tool name", sarif.contains("Code Pattern Analyzer"))
+        assertTrue("Should contain tool name", sarif.contains("CodeVigil"))
         assertTrue("Should contain rule", sarif.contains("solid-srp"))
         assertTrue("Should contain file path", sarif.contains("App.java"))
         assertTrue("Should contain message", sarif.contains("too many responsibilities"))
